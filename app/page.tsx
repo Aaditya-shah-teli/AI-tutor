@@ -2,21 +2,42 @@ import CompanionCard from '@/components/CompanionCard'
 import CompanionsList from '@/components/CompanionsList'
 import Cta from '@/components/CTA'
 import { Button } from '@/components/ui/button'
-import { recentSessions } from '@/constants'
+import { getAllCompanions, getRecentSessions } from '@/lib/actions/companion.action'
 import React from 'react'
 
-const Page = () => {
+// Custom luxury RGB colors
+const luxuryColors = [
+  'rgb(249, 219, 126)', // Gold
+  'rgb(175, 175, 211)', // Lavender Gray
+  'rgb(211, 253, 225)', // Mint Cream
+];
+
+const getRandomLuxuryColor = () => {
+  const randomIndex = Math.floor(Math.random() * luxuryColors.length);
+  return luxuryColors[randomIndex];
+};
+
+const Page = async () => {
+  const companions = await getAllCompanions({ limit: 3 });
+  const recentSessionCompanions = await getRecentSessions({ limit: 10 });
+
   return (
     <main>
       <h1 className='text-2xl underline'>Popular Companions</h1>
       <section className='home-section'>
-        <CompanionCard id='123' name='Neura the brain exploral' topic='Nural network of brain' subject='science' duration={45} color='#ffe232'/>
-        <CompanionCard id='124' name='baba the khana exploral' topic='bromo promo of brain' subject='science' duration={45} color='#ffe232'/>
-        <CompanionCard id='125' name='hauba the kaya exploral' topic='kya sal of brain' subject='science' duration={45} color='#ffe232'/>
+        {
+          companions.map((companion) => (
+            <CompanionCard
+              {...companion}
+              key={companion.id}
+              color={getRandomLuxuryColor()}
+            />
+          ))
+        }
       </section>
       <section className="home-section">
-        <CompanionsList title="Recently completed sessions" companions={recentSessions} classNames="w-1/3 max-lg:w-full"/>
-        <Cta/>
+        <CompanionsList title="Recently completed sessions" companions={recentSessionCompanions} classNames="w-1/3 max-lg:w-full" />
+        <Cta />
       </section>
     </main>
   )
