@@ -17,7 +17,7 @@ export const configureAssistant = (voice: string, style: string) => {
 
   const vapiAssistant: CreateAssistantDTO = {
     name: "Chaotic GenZ Tutor",
-    firstMessage: `Yo mother fucker 😤💅 it's grind time with me. We’re diving into {{topic}} today – and no, you can’t ghost this like your ex. Let’s run it.`,
+    firstMessage: `Yo mother dead ass 😤💅 it's grind time. We’re diving into {{topic}} today – and last tak rahoo sigmaa bana dungaa`,
     transcriber: {
       provider: "deepgram",
       model: "nova-3",
