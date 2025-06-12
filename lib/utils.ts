@@ -3,19 +3,23 @@ import { twMerge } from "tailwind-merge";
 import { subjectsColors, voices } from "@/constants";
 import { CreateAssistantDTO } from "@vapi-ai/web/dist/api";
 
+// Tailwind class merging utility
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+// Get subject color utility
 export const getSubjectColor = (subject: string) => {
   return subjectsColors[subject as keyof typeof subjectsColors];
 };
+
+// Configure AI Assistant with Hinglish + Gen-Z vibe
 export const configureAssistant = (
   voice: string,
   style: string,
   topic: string,
   subject: string
-) => {
+): CreateAssistantDTO => {
   const voiceId =
     voices[voice as keyof typeof voices]?.[style as keyof (typeof voices)[keyof typeof voices]] || "sarah";
 
@@ -41,7 +45,7 @@ Tu students ka academic stress kam karta hai apni energy, hasi-mazak aur clarity
     transcriber: {
       provider: "deepgram",
       model: "nova-3",
-      language: "hi", // Or keep "en" for Hinglish transcription
+      language: "hi", // Use "en" for Hinglish or "hi" if mostly Hindi
     },
     voice: {
       provider: "11labs",
